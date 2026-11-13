@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" fill="none">
+  <defs>
+    <linearGradient id="ergoTealNavy" x1="30" y1="30" x2="130" y2="155" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#266B73" />
+      <stop offset="55%" stop-color="#23518C" />
+      <stop offset="100%" stop-color="#0B1F3A" />
+    </linearGradient>
+    <linearGradient id="ergoCobaltAzure" x1="70" y1="165" x2="170" y2="45" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#23518C" />
+      <stop offset="55%" stop-color="#2964D9" />
+      <stop offset="100%" stop-color="#2975D9" />
+    </linearGradient>
+  </defs>
+  <path d="M126 36 C133 36 141 42 146 51 L133 52 C128 45 123 44 118 46 Z" fill="#9CA3AF" />
+  <path d="M74 164 C67 164 59 158 54 149 L67 148 C72 155 77 156 82 154 Z" fill="#9CA3AF" />
+  <path d="M125 36 C116 34 106 38 100 48 L56 122 C51 131 52 141 59 148 L74 134 C69 129 69 124 72 118 L112 51 C116 45 122 43 128 45 L142 48 C138 40 132 37 125 36 Z" fill="url(#ergoTealNavy)" />
+  <path d="M100 48 L80 48 C68 48 60 54 54 64 L32 100 C27 109 28 119 34 127 L55 151 C61 158 70 158 77 150 L92 132 L78 122 L66 136 C63 139 59 138 56 134 L48 120 C45 115 45 109 48 104 L68 71 C71 65 76 62 83 62 L96 62 Z" fill="url(#ergoTealNavy)" />
+  <path d="M75 164 C84 166 94 162 100 152 L144 78 C149 69 148 59 141 52 L126 66 C131 71 131 76 128 82 L88 149 C84 155 78 157 72 155 L58 152 C62 160 68 163 75 164 Z" fill="url(#ergoCobaltAzure)" />
+  <path d="M100 152 L120 152 C132 152 140 146 146 136 L168 100 C173 91 172 81 166 73 L145 49 C139 42 130 42 123 50 L108 68 L122 78 L134 64 C137 61 141 62 144 66 L152 80 C155 85 155 91 152 96 L132 129 C129 135 124 138 117 138 L104 138 Z" fill="url(#ergoCobaltAzure)" />
+</svg>
+
