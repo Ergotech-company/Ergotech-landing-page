@@ -3,10 +3,12 @@ import { motion } from 'framer-motion';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
   faCircleCheck,
+  faClipboardList,
   faEnvelope,
   faPaperPlane,
-  faWandMagicSparkles,
+  faPhone,
 } from '@fortawesome/free-solid-svg-icons';
+import { faInstagram } from '@fortawesome/free-brands-svg-icons';
 import { MagneticButton } from './MagneticButton';
 
 export function ContactSection({ copy }) {
@@ -41,72 +43,90 @@ export function ContactSection({ copy }) {
   return (
     <section
       id="contacto"
-      className="relative overflow-hidden bg-[#050914] py-24 text-[#F2F2F2] sm:py-28"
+      className="relative overflow-hidden border-t border-[#1F4071]/10 bg-gradient-to-b from-[#F4F7FC] to-[#EBF1FA] py-24 text-[#102C53] sm:py-28"
     >
-      <div className="pointer-events-none absolute -bottom-24 left-1/3 h-[440px] w-[440px] rounded-full bg-[#00F0FF]/18 blur-[140px]" />
-      <div className="pointer-events-none absolute top-10 right-1/4 h-[340px] w-[340px] rounded-full bg-[#FF2E93]/14 blur-[130px]" />
+      <div className="pointer-events-none absolute -bottom-24 left-1/3 h-[380px] w-[380px] rounded-full bg-[#336DE6]/8 blur-[120px]" />
+      <div className="pointer-events-none absolute top-10 right-1/4 h-[300px] w-[300px] rounded-full bg-[#27717C]/8 blur-[120px]" />
 
       <div className="relative z-10 mx-auto grid max-w-7xl grid-cols-1 gap-12 px-4 sm:px-6 lg:grid-cols-12 lg:px-8">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.3 }}
-          transition={{ duration: 0.5 }}
+          transition={{ duration: 0.45 }}
           className="flex flex-col justify-between lg:col-span-5"
         >
           <div>
-            <span className="inline-flex items-center gap-2 rounded-full border border-[#FF2E93]/55 bg-[#FF2E93]/15 px-3.5 py-1 font-mono text-xs font-semibold tracking-[0.18em] text-[#FF2E93] uppercase">
-              <FontAwesomeIcon icon={faWandMagicSparkles} className="text-xs" />
+            <span className="inline-flex items-center gap-2 rounded-full border border-[#2C56AA]/25 bg-white px-3.5 py-1 font-mono text-xs font-bold tracking-[0.18em] text-[#2C56AA] uppercase shadow-xs">
+              <FontAwesomeIcon icon={faClipboardList} className="text-xs text-[#336DE6]" />
               {copy.eyebrow}
             </span>
-            <h2 className="mt-4 font-display text-3xl font-bold tracking-tight sm:text-4xl lg:text-5xl">
+            <h2 className="mt-4 font-display text-3xl font-bold tracking-tight text-[#102C53] sm:text-4xl lg:text-5xl">
               {copy.title}
             </h2>
-            <p className="mt-4 text-base leading-relaxed text-[#F2F2F2]/75 sm:text-lg">
+            <p className="mt-4 text-base leading-relaxed font-medium text-[#1F4071]/85 sm:text-lg">
               {copy.subtitle}
             </p>
           </div>
 
-          <div className="mt-10 rounded-2xl border border-[#00F0FF]/45 bg-[#0A1326]/90 p-6 shadow-[0_0_30px_rgba(0,240,255,0.14)] backdrop-blur-md">
-            <div className="font-mono text-xs font-semibold tracking-wider text-[#00FFA3] uppercase">
+          <div className="mt-10 rounded-2xl border border-[#1F4071]/15 bg-white p-6 shadow-[0_12px_30px_rgba(16,44,83,0.07)]">
+            <div className="font-mono text-xs font-bold tracking-wider text-[#27717C] uppercase">
               {copy.directLabel}
             </div>
-            <a
-              href="mailto:ergotechnologysupport@gmail.com"
-              className="mt-2 inline-flex items-center gap-2.5 font-display text-base font-semibold text-[#F2F2F2] transition-colors hover:text-[#00F0FF] sm:text-lg"
-            >
-              <FontAwesomeIcon icon={faEnvelope} className="text-base text-[#00F0FF]" />
-              <span>ergotechnologysupport@gmail.com</span>
-            </a>
+            <div className="mt-3 flex flex-col gap-3">
+              <a
+                href="mailto:ergotechnologysupport@gmail.com"
+                className="inline-flex items-center gap-2.5 font-spartan text-base font-bold text-[#102C53] transition-colors hover:text-[#336DE6] sm:text-lg"
+              >
+                <FontAwesomeIcon icon={faEnvelope} className="w-4 text-base text-[#336DE6]" />
+                <span>ergotechnologysupport@gmail.com</span>
+              </a>
+              <a
+                href="tel:4125203729"
+                className="inline-flex items-center gap-2.5 font-spartan text-base font-bold text-[#102C53] transition-colors hover:text-[#336DE6] sm:text-lg"
+              >
+                <FontAwesomeIcon icon={faPhone} className="w-4 text-base text-[#27717C]" />
+                <span>412-5203729</span>
+              </a>
+              <a
+                href="https://www.instagram.com/ergotechnology_devs/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2.5 font-spartan text-base font-bold text-[#102C53] transition-colors hover:text-[#336DE6] sm:text-lg"
+              >
+                <FontAwesomeIcon icon={faInstagram} className="w-4 text-base text-[#2C56AA]" />
+                <span>@ergotechnology_devs</span>
+              </a>
+            </div>
           </div>
         </motion.div>
 
         <motion.div
-          initial={{ opacity: 0, y: 24 }}
+          initial={{ opacity: 0, y: 22 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.25 }}
-          transition={{ duration: 0.5, delay: 0.1 }}
-          className="rounded-3xl border border-[#00F0FF]/40 bg-[#0A1326]/90 p-6 shadow-[0_0_48px_rgba(41,100,217,0.2)] backdrop-blur-xl sm:p-9 lg:col-span-7"
+          transition={{ duration: 0.45, delay: 0.08 }}
+          className="rounded-3xl border border-[#1F4071]/15 bg-white p-6 shadow-[0_18px_48px_rgba(16,44,83,0.08)] sm:p-9 lg:col-span-7"
         >
           {status === 'sent' ? (
             <motion.div
-              initial={{ opacity: 0, scale: 0.95 }}
+              initial={{ opacity: 0, scale: 0.96 }}
               animate={{ opacity: 1, scale: 1 }}
               className="flex min-h-[360px] flex-col items-center justify-center text-center"
             >
-              <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-[#00FFA3]/20 text-[#00FFA3] shadow-[0_0_24px_rgba(0,255,163,0.4)]">
+              <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-[#27717C]/12 text-[#27717C]">
                 <FontAwesomeIcon icon={faCircleCheck} className="text-3xl" />
               </div>
-              <h3 className="mt-5 font-display text-2xl font-bold text-[#F2F2F2]">
+              <h3 className="mt-5 font-spartan text-2xl font-bold text-[#102C53]">
                 {copy.form.successTitle}
               </h3>
-              <p className="mt-3 max-w-md text-sm leading-relaxed text-[#F2F2F2]/75 sm:text-base">
+              <p className="mt-3 max-w-md text-sm leading-relaxed text-[#1F4071] sm:text-base">
                 {copy.form.successBody}
               </p>
               <button
                 type="button"
                 onClick={handleReset}
-                className="mt-7 cursor-pointer rounded-xl border border-[#00F0FF]/60 bg-[#050914] px-5 py-2.5 text-sm font-semibold text-[#00F0FF] transition-colors hover:bg-[#00F0FF] hover:text-[#050914]"
+                className="mt-7 cursor-pointer rounded-xl border border-[#2C56AA] bg-[#102C53] px-5 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-[#336DE6]"
               >
                 {copy.form.reset}
               </button>
@@ -124,8 +144,8 @@ export function ContactSection({ copy }) {
                         onClick={() => toggleScope(idx)}
                         className={`cursor-pointer rounded-xl border px-3.5 py-1.5 font-mono text-xs font-semibold transition-all ${
                           active
-                            ? 'border-[#00F0FF] bg-gradient-to-r from-[#00F0FF] to-[#2975D9] text-[#050914] shadow-[0_0_20px_rgba(0,240,255,0.5)]'
-                            : 'border-[#23518C]/70 bg-[#050914]/75 text-[#F2F2F2]/75 hover:border-[#00F0FF]/70 hover:text-[#00F0FF]'
+                            ? 'border-[#2C56AA] bg-gradient-to-r from-[#102C53] to-[#336DE6] text-white shadow-[0_4px_14px_rgba(44,86,170,0.22)]'
+                            : 'border-[#1F4071]/20 bg-[#F8FAFC] text-[#1F4071] hover:border-[#336DE6] hover:text-[#336DE6]'
                         }`}
                       >
                         {scope}
@@ -137,7 +157,7 @@ export function ContactSection({ copy }) {
 
               <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
                 <label className="flex flex-col gap-1.5">
-                  <span className="font-mono text-xs text-[#F2F2F2]/75">
+                  <span className="font-mono text-xs font-semibold text-[#1F4071]">
                     {copy.form.nameLabel}
                   </span>
                   <input
@@ -146,12 +166,12 @@ export function ContactSection({ copy }) {
                     value={formState.name}
                     onChange={(e) => setFormState({ ...formState, name: e.target.value })}
                     placeholder={copy.form.namePlaceholder}
-                    className="rounded-xl border border-[#23518C]/70 bg-[#050914]/85 px-4 py-3 text-sm text-[#F2F2F2] placeholder-[#F2F2F2]/35 outline-none transition-colors focus:border-[#00F0FF]"
+                    className="rounded-xl border border-[#1F4071]/20 bg-[#F8FAFC] px-4 py-3 text-sm text-[#102C53] placeholder-[#1F4071]/45 outline-none transition-colors focus:border-[#336DE6] focus:bg-white"
                   />
                 </label>
 
                 <label className="flex flex-col gap-1.5">
-                  <span className="font-mono text-xs text-[#F2F2F2]/75">
+                  <span className="font-mono text-xs font-semibold text-[#1F4071]">
                     {copy.form.emailLabel}
                   </span>
                   <input
@@ -160,13 +180,13 @@ export function ContactSection({ copy }) {
                     value={formState.email}
                     onChange={(e) => setFormState({ ...formState, email: e.target.value })}
                     placeholder={copy.form.emailPlaceholder}
-                    className="rounded-xl border border-[#23518C]/70 bg-[#050914]/85 px-4 py-3 text-sm text-[#F2F2F2] placeholder-[#F2F2F2]/35 outline-none transition-colors focus:border-[#00F0FF]"
+                    className="rounded-xl border border-[#1F4071]/20 bg-[#F8FAFC] px-4 py-3 text-sm text-[#102C53] placeholder-[#1F4071]/45 outline-none transition-colors focus:border-[#336DE6] focus:bg-white"
                   />
                 </label>
               </div>
 
               <label className="flex flex-col gap-1.5">
-                <span className="font-mono text-xs text-[#F2F2F2]/75">
+                <span className="font-mono text-xs font-semibold text-[#1F4071]">
                   {copy.form.companyLabel}
                 </span>
                 <input
@@ -174,12 +194,12 @@ export function ContactSection({ copy }) {
                   value={formState.company}
                   onChange={(e) => setFormState({ ...formState, company: e.target.value })}
                   placeholder={copy.form.companyPlaceholder}
-                  className="rounded-xl border border-[#23518C]/70 bg-[#050914]/85 px-4 py-3 text-sm text-[#F2F2F2] placeholder-[#F2F2F2]/35 outline-none transition-colors focus:border-[#00F0FF]"
+                  className="rounded-xl border border-[#1F4071]/20 bg-[#F8FAFC] px-4 py-3 text-sm text-[#102C53] placeholder-[#1F4071]/45 outline-none transition-colors focus:border-[#336DE6] focus:bg-white"
                 />
               </label>
 
               <label className="flex flex-col gap-1.5">
-                <span className="font-mono text-xs text-[#F2F2F2]/75">
+                <span className="font-mono text-xs font-semibold text-[#1F4071]">
                   {copy.form.detailsLabel}
                 </span>
                 <textarea
@@ -188,14 +208,14 @@ export function ContactSection({ copy }) {
                   value={formState.details}
                   onChange={(e) => setFormState({ ...formState, details: e.target.value })}
                   placeholder={copy.form.detailsPlaceholder}
-                  className="resize-none rounded-xl border border-[#23518C]/70 bg-[#050914]/85 px-4 py-3 text-sm text-[#F2F2F2] placeholder-[#F2F2F2]/35 outline-none transition-colors focus:border-[#00F0FF]"
+                  className="resize-none rounded-xl border border-[#1F4071]/20 bg-[#F8FAFC] px-4 py-3 text-sm text-[#102C53] placeholder-[#1F4071]/45 outline-none transition-colors focus:border-[#336DE6] focus:bg-white"
                 />
               </label>
 
               <div className="pt-2">
                 <MagneticButton
                   type="submit"
-                  className="inline-flex w-full cursor-pointer items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-[#00FFA3] via-[#00F0FF] to-[#A855F7] px-6 py-3.5 text-sm font-bold text-[#050914] shadow-[0_0_32px_rgba(0,240,255,0.48)] transition-all hover:shadow-[0_0_46px_rgba(168,85,247,0.68)] sm:w-auto"
+                  className="inline-flex w-full cursor-pointer items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-[#102C53] via-[#2C56AA] to-[#336DE6] px-6 py-3.5 text-sm font-bold text-white shadow-[0_8px_22px_rgba(44,86,170,0.22)] transition-all hover:shadow-[0_12px_28px_rgba(51,109,230,0.3)] sm:w-auto"
                 >
                   <FontAwesomeIcon icon={faPaperPlane} className="text-xs" />
                   <span>

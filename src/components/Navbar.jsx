@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { AnimatePresence, motion, useScroll, useSpring } from 'framer-motion';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faBars, faGlobe, faRocket, faXmark } from '@fortawesome/free-solid-svg-icons';
+import { faArrowRight, faBars, faGlobe, faXmark } from '@fortawesome/free-solid-svg-icons';
 import { ErgoBrandLockup } from './ErgoLogo';
 import { MagneticButton } from './MagneticButton';
 
@@ -44,111 +44,179 @@ export function Navbar({ lang, setLang, copy }) {
     <>
       <motion.div
         style={{ scaleX }}
-        className="fixed top-0 right-0 left-0 z-50 h-[3px] origin-left bg-gradient-to-r from-[#00FFA3] via-[#00F0FF] to-[#A855F7] shadow-[0_0_16px_rgba(0,240,255,0.8)]"
+        className="fixed top-0 right-0 left-0 z-50 h-[3px] origin-left bg-gradient-to-r from-[#102C53] via-[#336DE6] to-[#27717C]"
       />
 
-      <header className="fixed top-3 right-0 left-0 z-40 px-4 sm:px-6 lg:px-8">
+      <header className="fixed top-0 right-0 left-0 z-40 w-full">
         <motion.nav
-          initial={{ y: -24, opacity: 0 }}
+          initial={{ y: -20, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
-          transition={{ duration: 0.55, delay: 0.15 }}
-          className={`mx-auto flex max-w-7xl items-center justify-between rounded-2xl border px-4 py-2.5 transition-all duration-300 sm:px-6 ${
+          transition={{ duration: 0.45, delay: 0.08 }}
+          className={`w-full border-b transition-all duration-300 ${
             scrolled
-              ? 'border-[#00F0FF]/40 bg-[#050914]/88 shadow-[0_12px_42px_rgba(0,240,255,0.14)] backdrop-blur-xl'
-              : 'border-[#2975D9]/35 bg-[#050914]/65 backdrop-blur-md'
+              ? 'border-[#1F4071]/18 bg-white/95 shadow-[0_8px_28px_rgba(16,44,83,0.08)] backdrop-blur-xl'
+              : 'border-[#1F4071]/12 bg-white/90 shadow-[0_2px_12px_rgba(16,44,83,0.04)] backdrop-blur-md'
           }`}
         >
-          <a href="#top" className="group flex items-center">
-            <motion.div
-              whileHover={{ scale: 1.04 }}
-              transition={{ type: 'spring', stiffness: 320, damping: 16 }}
-            >
-              <ErgoBrandLockup
-                layout="row"
-                variant="dark"
-                iconSize={40}
-                wordmarkSize="sm"
-              />
-            </motion.div>
-          </a>
+          <div className="mx-auto flex w-full max-w-7xl items-center justify-between px-4 py-3 sm:px-6 lg:px-8">
+            <a href="#top" className="group flex items-center">
+              <motion.div
+                whileHover={{ scale: 1.03 }}
+                transition={{ type: 'spring', stiffness: 320, damping: 18 }}
+              >
+                <ErgoBrandLockup
+                  layout="row"
+                  variant="light"
+                  iconSize={40}
+                  wordmarkSize="sm"
+                />
+              </motion.div>
+            </a>
 
-          <div className="hidden items-center gap-1 rounded-xl border border-[#23518C]/55 bg-[#0A1326]/80 p-1 md:flex">
-            {copy.links.map((link) => {
-              const isActive = activeId === link.id;
-              return (
-                <a
-                  key={link.id}
-                  href={`#${link.id}`}
-                  onClick={() => setActiveId(link.id)}
-                  className={`relative rounded-lg px-3.5 py-1.5 text-sm font-medium transition-colors ${
-                    isActive ? 'text-[#050914] font-semibold' : 'text-[#F2F2F2]/75 hover:text-[#00F0FF]'
-                  }`}
+            <div className="hidden items-center gap-1 rounded-xl border border-[#1F4071]/12 bg-[#F1F5FA] p-1 md:flex">
+              {copy.links.map((link) => {
+                const isActive = activeId === link.id;
+                return (
+                  <a
+                    key={link.id}
+                    href={`#${link.id}`}
+                    onClick={() => setActiveId(link.id)}
+                    className={`relative rounded-lg px-3.5 py-1.5 text-sm font-semibold transition-colors ${
+                      isActive ? 'text-white' : 'text-[#1F4071] hover:text-[#336DE6]'
+                    }`}
+                  >
+                    {isActive && (
+                      <motion.span
+                        layoutId="nav-active-pill"
+                        transition={{ type: 'spring', stiffness: 380, damping: 30 }}
+                        className="absolute inset-0 rounded-lg bg-gradient-to-r from-[#102C53] to-[#2C56AA] shadow-[0_4px_12px_rgba(16,44,83,0.18)]"
+                      />
+                    )}
+                    <span className="relative z-10 inline-block">
+                      <AnimatePresence mode="wait" initial={false}>
+                        <motion.span
+                          key={`${link.id}-${lang}`}
+                          initial={{ opacity: 0, y: 5 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          exit={{ opacity: 0, y: -5 }}
+                          transition={{ duration: 0.16 }}
+                          className="inline-block"
+                        >
+                          {link.label}
+                        </motion.span>
+                      </AnimatePresence>
+                    </span>
+                  </a>
+                );
+              })}
+            </div>
+
+            <div className="hidden items-center gap-3 md:flex">
+              <div
+                role="group"
+                aria-label="Switch language"
+                className="flex items-center gap-1 rounded-xl border border-[#1F4071]/18 bg-[#F1F5FA] p-1"
+              >
+                <motion.span
+                  animate={{ rotate: lang === 'es' ? 0 : 180 }}
+                  transition={{ type: 'spring', stiffness: 260, damping: 20 }}
+                  className="flex items-center justify-center pl-1.5 text-[#27717C]"
                 >
-                  {isActive && (
-                    <motion.span
-                      layoutId="nav-active-pill"
-                      transition={{ type: 'spring', stiffness: 380, damping: 30 }}
-                      className="absolute inset-0 rounded-lg bg-gradient-to-r from-[#00F0FF] via-[#2975D9] to-[#00FFA3] shadow-[0_0_20px_rgba(0,240,255,0.55)]"
-                    />
-                  )}
-                  <span className="relative z-10">{link.label}</span>
-                </a>
-              );
-            })}
-          </div>
+                  <FontAwesomeIcon icon={faGlobe} className="text-xs" />
+                </motion.span>
+                {['es', 'en'].map((code) => {
+                  const selected = lang === code;
+                  return (
+                    <button
+                      key={code}
+                      type="button"
+                      onClick={() => setLang(code)}
+                      className={`relative cursor-pointer rounded-lg px-2.5 py-1 font-mono text-xs font-bold transition-colors ${
+                        selected ? 'text-white' : 'text-[#1F4071] hover:text-[#336DE6]'
+                      }`}
+                    >
+                      {selected && (
+                        <motion.span
+                          layoutId="lang-switch-pill"
+                          transition={{ type: 'spring', stiffness: 420, damping: 30 }}
+                          className="absolute inset-0 rounded-lg bg-[#0B0F17]"
+                        />
+                      )}
+                      <span className="relative z-10">{code.toUpperCase()}</span>
+                    </button>
+                  );
+                })}
+              </div>
 
-          <div className="hidden items-center gap-3 md:flex">
-            <button
-              type="button"
-              onClick={() => setLang((prev) => (prev === 'es' ? 'en' : 'es'))}
-              className="flex cursor-pointer items-center gap-1.5 rounded-xl border border-[#00F0FF]/45 bg-[#0A1326]/85 px-3 py-1.5 font-mono text-xs font-semibold text-[#00F0FF] shadow-[0_0_12px_rgba(0,240,255,0.2)] transition-all hover:border-[#00F0FF] hover:shadow-[0_0_20px_rgba(0,240,255,0.45)]"
-              aria-label="Switch language"
-            >
-              <FontAwesomeIcon icon={faGlobe} className="text-xs" />
-              <span>{lang.toUpperCase()}</span>
-            </button>
+              <MagneticButton
+                href="#contacto"
+                className="group inline-flex items-center gap-2 rounded-xl bg-gradient-to-r from-[#0B0F17] via-[#102C53] to-[#2C56AA] px-4 py-2 text-sm font-semibold text-white shadow-[0_6px_18px_rgba(16,44,83,0.2)] transition-all hover:shadow-[0_8px_24px_rgba(51,109,230,0.28)]"
+              >
+                <AnimatePresence mode="wait" initial={false}>
+                  <motion.span
+                    key={`cta-${lang}`}
+                    initial={{ opacity: 0, y: 5 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -5 }}
+                    transition={{ duration: 0.16 }}
+                  >
+                    {copy.cta}
+                  </motion.span>
+                </AnimatePresence>
+                <FontAwesomeIcon
+                  icon={faArrowRight}
+                  className="text-xs transition-transform group-hover:translate-x-0.5"
+                />
+              </MagneticButton>
+            </div>
 
-            <MagneticButton
-              href="#contacto"
-              className="group inline-flex items-center gap-2 rounded-xl bg-gradient-to-r from-[#2964D9] via-[#2975D9] to-[#00F0FF] px-4 py-2 text-sm font-bold text-[#050914] shadow-[0_0_26px_rgba(0,240,255,0.48)] transition-all hover:shadow-[0_0_38px_rgba(0,240,255,0.75)]"
-            >
-              <span>{copy.cta}</span>
-              <FontAwesomeIcon
-                icon={faRocket}
-                className="text-xs transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
-              />
-            </MagneticButton>
-          </div>
-
-          <div className="flex items-center gap-2 md:hidden">
-            <button
-              type="button"
-              onClick={() => setLang((prev) => (prev === 'es' ? 'en' : 'es'))}
-              className="rounded-lg border border-[#00F0FF]/50 px-2.5 py-1.5 font-mono text-xs text-[#00F0FF]"
-            >
-              {lang.toUpperCase()}
-            </button>
-            <button
-              type="button"
-              onClick={() => setMobileOpen((o) => !o)}
-              className="rounded-lg border border-[#23518C]/70 bg-[#0A1326] px-2.5 py-2 text-[#F2F2F2]"
-              aria-label="Menu"
-            >
-              <FontAwesomeIcon icon={mobileOpen ? faXmark : faBars} className="text-base" />
-            </button>
+            <div className="flex items-center gap-2 md:hidden">
+              <button
+                type="button"
+                onClick={() => setLang((prev) => (prev === 'es' ? 'en' : 'es'))}
+                className="flex items-center gap-1.5 overflow-hidden rounded-lg border border-[#1F4071]/25 bg-[#F8FAFC] px-2.5 py-1.5 font-mono text-xs font-semibold text-[#1F4071]"
+              >
+                <motion.span
+                  animate={{ rotate: lang === 'es' ? 0 : 180 }}
+                  transition={{ type: 'spring', stiffness: 260, damping: 20 }}
+                  className="text-[#27717C]"
+                >
+                  <FontAwesomeIcon icon={faGlobe} className="text-[11px]" />
+                </motion.span>
+                <AnimatePresence mode="wait" initial={false}>
+                  <motion.span
+                    key={`mob-lang-${lang}`}
+                    initial={{ opacity: 0, y: 6 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -6 }}
+                    transition={{ duration: 0.16 }}
+                  >
+                    {lang.toUpperCase()}
+                  </motion.span>
+                </AnimatePresence>
+              </button>
+              <button
+                type="button"
+                onClick={() => setMobileOpen((o) => !o)}
+                className="rounded-lg border border-[#1F4071]/20 bg-[#F1F5FA] px-2.5 py-2 text-[#102C53]"
+                aria-label="Menu"
+              >
+                <FontAwesomeIcon icon={mobileOpen ? faXmark : faBars} className="text-base" />
+              </button>
+            </div>
           </div>
         </motion.nav>
 
         <AnimatePresence>
           {mobileOpen && (
             <motion.div
-              initial={{ opacity: 0, y: -12 }}
+              initial={{ opacity: 0, y: -10 }}
               animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -12 }}
+              exit={{ opacity: 0, y: -10 }}
               transition={{ duration: 0.2 }}
-              className="mx-auto mt-2 max-w-7xl rounded-2xl border border-[#00F0FF]/35 bg-[#050914]/95 p-4 backdrop-blur-xl md:hidden"
+              className="w-full border-b border-[#1F4071]/15 bg-white/95 px-4 py-4 shadow-[0_14px_34px_rgba(16,44,83,0.12)] backdrop-blur-xl sm:px-6 md:hidden"
             >
-              <div className="flex flex-col gap-2">
+              <div className="mx-auto flex max-w-7xl flex-col gap-2">
                 {copy.links.map((link) => (
                   <a
                     key={link.id}
@@ -157,7 +225,7 @@ export function Navbar({ lang, setLang, copy }) {
                       setActiveId(link.id);
                       setMobileOpen(false);
                     }}
-                    className="rounded-xl px-3 py-2.5 text-base font-medium text-[#F2F2F2]/90 hover:bg-[#2964D9]/30 hover:text-[#00F0FF]"
+                    className="rounded-xl px-3 py-2.5 text-base font-semibold text-[#102C53] hover:bg-[#EEF3FA] hover:text-[#336DE6]"
                   >
                     {link.label}
                   </a>
@@ -165,10 +233,10 @@ export function Navbar({ lang, setLang, copy }) {
                 <a
                   href="#contacto"
                   onClick={() => setMobileOpen(false)}
-                  className="mt-2 flex items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-[#2964D9] to-[#00F0FF] px-4 py-3 text-sm font-bold text-[#050914]"
+                  className="mt-2 flex items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-[#0B0F17] via-[#102C53] to-[#336DE6] px-4 py-3 text-sm font-semibold text-white"
                 >
                   <span>{copy.cta}</span>
-                  <FontAwesomeIcon icon={faRocket} className="text-xs" />
+                  <FontAwesomeIcon icon={faArrowRight} className="text-xs" />
                 </a>
               </div>
             </motion.div>

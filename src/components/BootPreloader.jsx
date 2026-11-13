@@ -10,21 +10,20 @@ export function BootPreloader({ visible }) {
           initial={{ opacity: 1 }}
           exit={{
             y: '-100%',
-            transition: { duration: 0.65, ease: [0.76, 0, 0.24, 1] },
+            transition: { duration: 0.6, ease: [0.76, 0, 0.24, 1] },
           }}
-          className="fixed inset-0 z-[100] flex flex-col items-center justify-center bg-[#050914]"
+          className="fixed inset-0 z-[100] flex flex-col items-center justify-center bg-[#F8FAFC]"
         >
           <div className="relative flex flex-col items-center gap-6">
             <motion.div
-              initial={{ scale: 0.82, opacity: 0 }}
+              initial={{ scale: 0.9, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
-              transition={{ duration: 0.45, ease: 'easeOut' }}
-              className="relative flex items-center justify-center rounded-3xl p-6"
+              transition={{ duration: 0.4, ease: 'easeOut' }}
+              className="relative flex items-center justify-center rounded-3xl border border-[#1F4071]/10 bg-white px-10 py-8 shadow-[0_18px_45px_rgba(16,44,83,0.08)]"
             >
-              <div className="absolute -inset-6 rounded-full bg-gradient-to-tr from-[#00F0FF]/30 via-[#2964D9]/30 to-[#A855F7]/30 blur-2xl" />
               <ErgoBrandLockup
                 layout="stacked"
-                variant="dark"
+                variant="light"
                 iconSize={96}
                 wordmarkSize="lg"
                 animated
@@ -32,12 +31,12 @@ export function BootPreloader({ visible }) {
               />
             </motion.div>
 
-            <div className="h-[3px] w-52 overflow-hidden rounded-full bg-[#23518C]/40 shadow-[0_0_16px_rgba(0,240,255,0.4)]">
+            <div className="h-[3px] w-52 overflow-hidden rounded-full bg-[#1F4071]/15">
               <motion.div
                 initial={{ x: '-100%' }}
                 animate={{ x: '0%' }}
-                transition={{ duration: 0.85, ease: [0.22, 1, 0.36, 1] }}
-                className="h-full w-full bg-gradient-to-r from-[#00FFA3] via-[#00F0FF] to-[#A855F7]"
+                transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+                className="h-full w-full bg-gradient-to-r from-[#102C53] via-[#336DE6] to-[#27717C]"
               />
             </div>
           </div>

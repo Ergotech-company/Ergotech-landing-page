@@ -9,13 +9,13 @@ import {
   faReact,
 } from '@fortawesome/free-brands-svg-icons';
 import {
-  faBolt,
   faCode,
   faCodeMerge,
   faCubes,
   faDatabase,
   faDiagramProject,
-  faRocket,
+  faGlobe,
+  faNetworkWired,
   faServer,
   faShieldHalved,
 } from '@fortawesome/free-solid-svg-icons';
@@ -26,7 +26,7 @@ const FA_MAP = {
   merge: faCodeMerge,
   diagram: faDiagramProject,
   react: faReact,
-  rocket: faRocket,
+  rocket: faGlobe,
   python: faPython,
   database: faDatabase,
   code: faCode,
@@ -36,15 +36,16 @@ const FA_MAP = {
   node: faNodeJs,
   aws: faAws,
   git: faGitAlt,
-  bolt: faBolt,
+  bolt: faNetworkWired,
   server: faServer,
 };
 
 const ICON_COLORS = [
-  'text-[#00F0FF]',
-  'text-[#00FFA3]',
-  'text-[#A855F7]',
-  'text-[#FF2E93]',
+  'text-[#336DE6]',
+  'text-[#27717C]',
+  'text-[#60A5FA]',
+  'text-white/90',
+  'text-[#5EEAD4]',
 ];
 
 function MarqueeTrack({ items, reverse = false }) {
@@ -59,7 +60,7 @@ function MarqueeTrack({ items, reverse = false }) {
         {repeated.map((item, index) => (
           <div
             key={`${item.label}-${index}`}
-            className="flex shrink-0 items-center gap-2.5 rounded-xl border border-[#2975D9]/45 bg-[#0A1326]/90 px-5 py-2.5 font-mono text-sm font-medium text-[#F2F2F2] transition-all hover:border-[#00F0FF] hover:shadow-[0_0_22px_rgba(0,240,255,0.35)]"
+            className="flex shrink-0 items-center gap-2.5 rounded-xl border border-white/12 bg-[#121824] px-5 py-2.5 font-mono text-sm font-medium text-white/90 transition-all hover:border-[#336DE6]/70 hover:bg-[#161F30]"
           >
             <FontAwesomeIcon
               icon={FA_MAP[item.icon] || faCubes}
@@ -75,9 +76,9 @@ function MarqueeTrack({ items, reverse = false }) {
 
 export function TechMarquee({ copy }) {
   return (
-    <section className="marquee-wrapper relative border-y border-[#00F0FF]/25 bg-[#070E1E] py-10">
+    <section className="marquee-wrapper relative border-y border-[#1F4071]/30 bg-[#0B0F17] py-10">
       <div className="mx-auto mb-5 max-w-7xl px-4 text-center sm:px-6 lg:px-8">
-        <span className="font-mono text-xs font-semibold tracking-[0.22em] text-[#00F0FF] neon-text-cyan uppercase">
+        <span className="font-mono text-xs font-bold tracking-[0.22em] text-white/75 uppercase">
           {copy.label}
         </span>
       </div>
