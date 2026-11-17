@@ -1,245 +1,347 @@
-import { motion } from 'framer-motion';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import {
-  faArrowRight,
-  faCubes,
-  faDiagramProject,
-  faServer,
-  faShieldHalved,
-  faTerminal,
-} from '@fortawesome/free-solid-svg-icons';
-import { ErgoBrandLockup } from './ErgoLogo';
-import { MagneticButton } from './MagneticButton';
-import { NeuralCanvas } from './NeuralCanvas';
+import { useEffect, useState } from 'react';
+import { AnimatePresence, motion } from 'framer-motion';
+import { ChevronRight } from 'lucide-react';
 
 export function HeroSection({ copy }) {
-  const words1 = copy.titleLine1.split(' ');
-  const wordsHighlight = copy.titleHighlight.split(' ');
-  const words2 = copy.titleLine2.split(' ');
+  const [activeIndex, setActiveIndex] = useState(1);
+  const [isPaused, setIsPaused] = useState(false);
+
+  const tabs = copy.tabs;
+  const activeTab = tabs[activeIndex] || tabs[0];
+
+  useEffect(() => {
+    if (isPaused) return undefined;
+    const timer = setInterval(() => {
+      setActiveIndex((prev) => (prev + 1) % tabs.length);
+    }, 4500);
+    return () => clearInterval(timer);
+  }, [isPaused, tabs.length]);
+
+  const handleSelectTab = (idx) => {
+    setActiveIndex(idx);
+    setIsPaused(true);
+  };
 
   return (
-    <section
-      id="top"
-      className="relative flex min-h-screen items-center overflow-hidden bg-gradient-to-b from-[#FFFFFF] via-[#F7FAFE] to-[#EEF4FB] pt-28 pb-20 lg:pt-32"
-    >
-      <NeuralCanvas />
-      <div className="bg-blueprint-light pointer-events-none absolute inset-0 opacity-75" />
+    <section id="top" className="bg-transparent pt-28 pb-16 sm:pt-36 sm:pb-24">
+      <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
+        <div className="mx-auto max-w-3xl text-center">
+          <div className="font-mono text-xs font-medium tracking-wide text-[#475569]">
+            {copy.eyebrow}
+          </div>
 
-      {/* Subtle corporate ambient washes (80%+ reduced glow vs neon) */}
-      <div className="pointer-events-none absolute -top-24 left-1/4 h-[460px] w-[460px] rounded-full bg-[#336DE6]/8 blur-[120px]" />
-      <div className="pointer-events-none absolute right-0 bottom-0 h-[380px] w-[380px] rounded-full bg-[#27717C]/8 blur-[120px]" />
-
-      <div className="relative z-10 mx-auto grid max-w-7xl grid-cols-1 items-center gap-14 px-4 sm:px-6 lg:grid-cols-12 lg:gap-10 lg:px-8">
-        {/* Left: Lovelo Display + Spartan Copy */}
-        <div className="lg:col-span-7">
-          <motion.div
-            initial={{ opacity: 0, y: 16 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.45 }}
-            className="mb-6 inline-flex items-center gap-2.5 rounded-full border border-[#2C56AA]/25 bg-white px-4 py-1.5 shadow-[0_4px_14px_rgba(16,44,83,0.06)]"
-          >
-            <FontAwesomeIcon icon={faShieldHalved} className="text-xs text-[#27717C]" />
-            <span className="font-mono text-xs font-semibold tracking-[0.16em] text-[#1F4071]">
-              {copy.badge}
-            </span>
-          </motion.div>
-
-          <h1 className="font-display text-4xl leading-[1.08] font-bold tracking-tight text-[#102C53] sm:text-5xl lg:text-[3.5rem]">
-            <span className="flex flex-wrap gap-x-3">
-              {words1.map((word, idx) => (
-                <motion.span
-                  key={`w1-${idx}`}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.45, delay: 0.08 + idx * 0.05 }}
-                >
-                  {word}
-                </motion.span>
-              ))}
-            </span>
-            <span className="mt-1 flex flex-wrap gap-x-3">
-              {wordsHighlight.map((word, idx) => (
-                <motion.span
-                  key={`wh-${idx}`}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.45, delay: 0.22 + idx * 0.06 }}
-                  className="text-gradient-ergo"
-                >
-                  {word}
-                </motion.span>
-              ))}
-              {words2.map((word, idx) => (
-                <motion.span
-                  key={`w2-${idx}`}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.45, delay: 0.36 + idx * 0.06 }}
-                >
-                  {word}
-                </motion.span>
-              ))}
-            </span>
+          <h1 className="mt-4 text-4xl leading-[1.08] font-bold tracking-tight text-[#0F172A] sm:text-5xl lg:text-[3.75rem]">
+            {copy.titleLine1}
+            <br />
+            {copy.titleLine2}
           </h1>
 
-          <motion.p
-            initial={{ opacity: 0, y: 16 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.45 }}
-            className="mt-6 max-w-2xl text-base leading-relaxed font-medium text-[#1F4071]/85 sm:text-lg"
-          >
+          <p className="font-subtitle mx-auto mt-5 max-w-2xl text-base leading-relaxed text-[#475569] sm:text-lg">
             {copy.subtitle}
-          </motion.p>
+          </p>
 
-          <motion.div
-            initial={{ opacity: 0, y: 18 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.55 }}
-            className="mt-9 flex flex-wrap items-center gap-4"
-          >
-            <MagneticButton
+          <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
+            <a
               href="#contacto"
-              className="group inline-flex items-center gap-2.5 rounded-xl bg-gradient-to-r from-[#102C53] via-[#2C56AA] to-[#336DE6] px-6 py-3.5 text-sm font-bold text-white shadow-[0_10px_24px_rgba(44,86,170,0.25)] transition-all hover:shadow-[0_14px_30px_rgba(51,109,230,0.32)] sm:text-base"
+              className="inline-flex items-center gap-1.5 rounded-full bg-[#0F2744] px-6 py-3 text-sm font-semibold text-white transition-colors hover:bg-[#16375E]"
             >
               <span>{copy.primaryCta}</span>
-              <FontAwesomeIcon
-                icon={faArrowRight}
-                className="text-sm transition-transform group-hover:translate-x-1"
-              />
-            </MagneticButton>
+              <ChevronRight className="h-4 w-4" />
+            </a>
 
-            <MagneticButton
+            <a
               href="#laboratorio"
-              strength={0.18}
-              className="inline-flex items-center gap-2.5 rounded-xl border border-[#1F4071]/25 bg-white px-6 py-3.5 text-sm font-semibold text-[#102C53] shadow-[0_6px_16px_rgba(16,44,83,0.06)] transition-all hover:border-[#336DE6] hover:text-[#336DE6] sm:text-base"
+              className="inline-flex items-center justify-center rounded-full border border-slate-300 bg-white px-6 py-3 text-sm font-semibold text-[#0F172A] transition-colors hover:border-slate-400 hover:bg-slate-50"
             >
-              <FontAwesomeIcon icon={faTerminal} className="text-sm text-[#27717C]" />
-              <span>{copy.secondaryCta}</span>
-            </MagneticButton>
-          </motion.div>
-
-          <motion.div
-            initial={{ opacity: 0, y: 16 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.65 }}
-            className="mt-12 grid max-w-xl grid-cols-3 gap-4 border-t border-[#1F4071]/15 pt-6"
-          >
-            {copy.metrics.map((metric, idx) => {
-              const accentColor =
-                idx === 0
-                  ? 'text-[#336DE6]'
-                  : idx === 1
-                    ? 'text-[#27717C]'
-                    : 'text-[#102C53]';
-              return (
-                <div key={metric.label}>
-                  <div className={`font-display text-2xl font-bold sm:text-3xl ${accentColor}`}>
-                    {metric.value}
-                  </div>
-                  <div className="mt-1 font-mono text-[11px] font-semibold tracking-wider text-[#1F4071]/70 uppercase">
-                    {metric.label}
-                  </div>
-                </div>
-              );
-            })}
-          </motion.div>
+              {copy.secondaryCta}
+            </a>
+          </div>
         </div>
 
-        {/* Right: Crisp Light Brand Core showcasing Logo */}
-        <motion.div
-          initial={{ opacity: 0, scale: 0.94 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.65, delay: 0.22 }}
-          className="relative flex items-center justify-center lg:col-span-5"
+        <div
+          onMouseEnter={() => setIsPaused(true)}
+          className="mx-auto mt-12 max-w-5xl overflow-hidden rounded-2xl border border-slate-800 bg-[#0B121E] text-white shadow-[0_24px_64px_rgba(15,23,42,0.18)]"
         >
-          <div className="relative flex h-[390px] w-[360px] items-center justify-center sm:h-[450px] sm:w-[450px]">
-            <motion.div
-              animate={{ rotate: 360 }}
-              transition={{ duration: 36, repeat: Infinity, ease: 'linear' }}
-              className="absolute inset-2 rounded-full border border-dashed border-[#2C56AA]/25"
-            >
-              <span className="absolute -top-1.5 left-1/2 h-3 w-3 -translate-x-1/2 rounded-full bg-[#336DE6]" />
-              <span className="absolute -bottom-1.5 left-1/2 h-2.5 w-2.5 -translate-x-1/2 rounded-full bg-[#27717C]" />
-            </motion.div>
+          {/* Window Top Chrome */}
+          <div className="flex flex-wrap items-center justify-between gap-3 border-b border-white/10 bg-[#0E1626] px-4 py-3 sm:px-5">
+            <div className="flex items-center gap-1.5">
+              <span className="h-2.5 w-2.5 rounded-full bg-white/20" />
+              <span className="h-2.5 w-2.5 rounded-full bg-white/20" />
+              <span className="h-2.5 w-2.5 rounded-full bg-white/20" />
+            </div>
 
-            <motion.div
-              animate={{ rotate: -360 }}
-              transition={{ duration: 28, repeat: Infinity, ease: 'linear' }}
-              className="absolute inset-12 rounded-full border border-[#1F4071]/15"
-            >
-              <span className="absolute top-1/2 -right-1.5 h-2.5 w-2.5 -translate-y-1/2 rounded-full bg-[#102C53]" />
-            </motion.div>
+            <div className="rounded-lg border border-white/10 bg-[#0B121E] px-3 py-1 font-mono text-[11px] text-slate-300">
+              {activeTab.url}
+            </div>
 
-            <motion.div
-              animate={{ y: [-5, 5, -5] }}
-              transition={{ duration: 6, repeat: Infinity, ease: 'easeInOut' }}
-              whileHover={{ scale: 1.03 }}
-              className="relative rounded-[32px] border border-[#2C56AA]/20 bg-white p-[2px] shadow-[0_24px_60px_rgba(16,44,83,0.12)]"
-            >
-              <div className="relative z-10 flex h-64 w-64 flex-col items-center justify-center rounded-[30px] bg-gradient-to-br from-white via-[#FAFBFD] to-[#F1F6FC] px-6 py-6 sm:h-72 sm:w-72">
-                <div className="pointer-events-none absolute inset-0 rounded-[30px] bg-radial from-[#336DE6]/5 via-transparent to-transparent" />
-                <ErgoBrandLockup
-                  layout="stacked"
-                  variant="light"
-                  iconSize={122}
-                  wordmarkSize="md"
-                  animated
-                  className="relative z-10"
-                />
-              </div>
-            </motion.div>
-
-            {/* Formal Card 1: Odoo */}
-            <motion.div
-              animate={{ y: [0, -6, 0] }}
-              transition={{ duration: 4.8, repeat: Infinity, ease: 'easeInOut', delay: 0.2 }}
-              className="absolute top-2 right-0 flex items-center gap-2.5 rounded-xl border border-[#2C56AA]/20 bg-white/95 px-3.5 py-2.5 shadow-[0_10px_28px_rgba(16,44,83,0.1)] backdrop-blur-md"
-            >
-              <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-[#336DE6]/10 text-[#336DE6]">
-                <FontAwesomeIcon icon={faCubes} className="text-sm" />
-              </div>
-              <div>
-                <div className="font-mono text-[10px] font-bold tracking-widest text-[#2C56AA]">
-                  {copy.orbitCards.top.tag}
-                </div>
-                <div className="text-xs font-bold text-[#102C53]">
-                  {copy.orbitCards.top.value}
-                </div>
-              </div>
-            </motion.div>
-
-            {/* Formal Card 2: n8n */}
-            <motion.div
-              animate={{ y: [0, 6, 0] }}
-              transition={{ duration: 5.4, repeat: Infinity, ease: 'easeInOut', delay: 0.8 }}
-              className="absolute bottom-8 -left-2 flex items-center gap-2.5 rounded-xl border border-[#27717C]/25 bg-white/95 px-3.5 py-2.5 shadow-[0_10px_28px_rgba(16,44,83,0.1)] backdrop-blur-md sm:-left-4"
-            >
-              <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-[#27717C]/12 text-[#27717C]">
-                <FontAwesomeIcon icon={faDiagramProject} className="text-sm" />
-              </div>
-              <div>
-                <div className="font-mono text-[10px] font-bold tracking-widest text-[#27717C]">
-                  {copy.orbitCards.bottomLeft.tag}
-                </div>
-                <div className="text-xs font-bold text-[#102C53]">
-                  {copy.orbitCards.bottomLeft.value}
-                </div>
-              </div>
-            </motion.div>
-
-            {/* Formal Card 3: Web & Servers */}
-            <motion.div
-              animate={{ y: [0, -5, 0] }}
-              transition={{ duration: 5, repeat: Infinity, ease: 'easeInOut', delay: 1.2 }}
-              className="absolute right-2 bottom-2 flex items-center gap-2 rounded-xl border border-[#1F4071]/20 bg-white/95 px-3.5 py-2 shadow-[0_10px_28px_rgba(16,44,83,0.1)] backdrop-blur-md"
-            >
-              <FontAwesomeIcon icon={faServer} className="text-sm text-[#1F4071]" />
-              <span className="font-mono text-[11px] font-semibold text-[#102C53]">
-                {copy.orbitCards.bottomRight.value}
-              </span>
-            </motion.div>
+            <div className="flex items-center gap-2 font-mono text-[11px] text-emerald-400">
+              <span className="h-1.5 w-1.5 rounded-full bg-emerald-400" />
+              <span>{activeTab.status}</span>
+            </div>
           </div>
-        </motion.div>
+
+          {/* Tab Strip */}
+          <div className="flex flex-wrap items-center gap-1.5 border-b border-white/10 px-4 py-3 sm:px-5">
+            {tabs.map((tab, idx) => {
+              const selected = idx === activeIndex;
+              return (
+                <button
+                  key={tab.id}
+                  type="button"
+                  onClick={() => handleSelectTab(idx)}
+                  className={`cursor-pointer rounded-full px-3.5 py-1.5 text-xs font-medium transition-colors ${
+                    selected
+                      ? 'bg-white text-[#0F172A]'
+                      : 'text-slate-300 hover:bg-white/5 hover:text-white'
+                  }`}
+                >
+                  {tab.label}
+                </button>
+              );
+            })}
+          </div>
+
+          {/* Tab Content */}
+          <div className="p-4 sm:p-6">
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={activeTab.id}
+                initial={{ opacity: 0, y: 6 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -6 }}
+                transition={{ duration: 0.2 }}
+                className="grid grid-cols-1 gap-4 lg:grid-cols-12"
+              >
+                {/* Left Operational Frame */}
+                <div className="rounded-xl border border-white/10 bg-[#10192A] p-4 sm:p-5 lg:col-span-8">
+                  <div className="flex items-center justify-between gap-2 border-b border-white/10 pb-3">
+                    <h3 className="text-sm font-semibold text-white">{activeTab.headerTitle}</h3>
+                    <span className="rounded-md border border-white/15 bg-white/5 px-2.5 py-0.5 font-mono text-[11px] text-slate-300">
+                      {activeTab.headerBadge}
+                    </span>
+                  </div>
+
+                  {/* N8N Pipeline Layout */}
+                  {activeTab.id === 'n8n' && (
+                    <div className="mt-4 space-y-4">
+                      <div className="grid grid-cols-2 gap-2.5 sm:grid-cols-4">
+                        {activeTab.pipeline.map((step) => (
+                          <div
+                            key={step.tag}
+                            className="rounded-lg border border-white/10 bg-[#0B121E] p-3"
+                          >
+                            <div className="font-mono text-[10px] font-semibold text-slate-400">
+                              {step.tag}
+                            </div>
+                            <div className="mt-1.5 text-xs font-semibold text-white">
+                              {step.title}
+                            </div>
+                            <div className="mt-0.5 font-mono text-[10px] text-slate-400">
+                              {step.sub}
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+
+                      <div className="space-y-2">
+                        {activeTab.events.map((ev) => (
+                          <div
+                            key={ev.id}
+                            className="flex flex-wrap items-center justify-between gap-2 rounded-lg border border-white/10 bg-[#0B121E] px-3.5 py-2.5"
+                          >
+                            <span className="font-mono text-xs font-medium text-white">
+                              {ev.id}
+                            </span>
+                            <span className="font-mono text-xs text-slate-400">{ev.flow}</span>
+                            <span
+                              className={`rounded-md px-2 py-0.5 font-mono text-[11px] ${
+                                ev.tone === 'success'
+                                  ? 'bg-emerald-500/15 text-emerald-300'
+                                  : 'bg-amber-500/15 text-amber-300'
+                              }`}
+                            >
+                              {ev.status}
+                            </span>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+
+                  {/* Web App B2B React Layout */}
+                  {activeTab.id === 'web' && (
+                    <div className="mt-4 space-y-4">
+                      <div className="grid grid-cols-3 gap-2.5">
+                        {activeTab.kpis.map((kpi) => (
+                          <div
+                            key={kpi.label}
+                            className="rounded-lg border border-white/10 bg-[#0B121E] p-3"
+                          >
+                            <div className="text-[11px] text-slate-400">{kpi.label}</div>
+                            <div className="mt-1 text-lg font-bold text-white">{kpi.value}</div>
+                          </div>
+                        ))}
+                      </div>
+
+                      <div className="space-y-2">
+                        {activeTab.catalog.map((item) => (
+                          <div
+                            key={item.name}
+                            className="flex flex-wrap items-center justify-between gap-2 rounded-lg border border-white/10 bg-[#0B121E] px-3.5 py-2.5"
+                          >
+                            <div>
+                              <div className="text-xs font-semibold text-white">{item.name}</div>
+                              <div className="font-mono text-[10px] text-slate-400">{item.sku}</div>
+                            </div>
+                            <span className="rounded-md border border-white/10 bg-white/5 px-2.5 py-1 font-mono text-[11px] text-slate-200">
+                              {item.qty}
+                            </span>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+
+                  {/* Odoo 19 ERP Layout */}
+                  {activeTab.id === 'odoo' && (
+                    <div className="mt-4 space-y-4">
+                      <div className="grid grid-cols-3 gap-2.5">
+                        {activeTab.kpis.map((kpi) => (
+                          <div
+                            key={kpi.label}
+                            className="rounded-lg border border-white/10 bg-[#0B121E] p-3"
+                          >
+                            <div className="text-[11px] text-slate-400">{kpi.label}</div>
+                            <div className="mt-1 text-lg font-bold text-white">{kpi.value}</div>
+                          </div>
+                        ))}
+                      </div>
+
+                      <div className="space-y-2">
+                        {activeTab.rows.map((row) => (
+                          <div
+                            key={row.code}
+                            className="flex flex-wrap items-center justify-between gap-2 rounded-lg border border-white/10 bg-[#0B121E] px-3.5 py-2.5"
+                          >
+                            <span className="font-mono text-xs font-semibold text-white">
+                              {row.code}
+                            </span>
+                            <span className="text-xs text-slate-400">{row.name}</span>
+                            <span className="rounded-md bg-emerald-500/15 px-2 py-0.5 font-mono text-[11px] text-emerald-300">
+                              {row.state}
+                            </span>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+
+                  {/* Flutter & Docker Layout */}
+                  {activeTab.id === 'flutter' && (
+                    <div className="mt-4 grid grid-cols-1 gap-3 sm:grid-cols-2">
+                      <div className="rounded-lg border border-white/10 bg-[#0B121E] p-3.5">
+                        <div className="flex items-center justify-between">
+                          <span className="text-xs font-semibold text-white">
+                            {activeTab.mobileBox.title}
+                          </span>
+                          <span className="rounded-md bg-emerald-500/15 px-2 py-0.5 font-mono text-[10px] text-emerald-300">
+                            {activeTab.mobileBox.status}
+                          </span>
+                        </div>
+                        <div className="mt-3 space-y-2">
+                          <div className="rounded-md border border-white/10 bg-[#10192A] px-2.5 py-2 font-mono text-[11px] text-slate-200">
+                            {activeTab.mobileBox.guide}
+                          </div>
+                          <div className="rounded-md border border-white/10 bg-[#10192A] px-2.5 py-2 font-mono text-[11px] text-slate-300">
+                            {activeTab.mobileBox.ean}
+                          </div>
+                        </div>
+                        <div className="mt-3">
+                          <div className="h-1.5 w-full overflow-hidden rounded-full bg-white/10">
+                            <div
+                              className="h-full rounded-full bg-[#158EA6]"
+                              style={{ width: `${activeTab.mobileBox.pct}%` }}
+                            />
+                          </div>
+                          <div className="mt-1.5 font-mono text-[10px] text-slate-400">
+                            {activeTab.mobileBox.progress}
+                          </div>
+                        </div>
+                      </div>
+
+                      <div className="rounded-lg border border-white/10 bg-[#0B121E] p-3.5">
+                        <div className="flex items-center justify-between">
+                          <span className="text-xs font-semibold text-white">
+                            {activeTab.dockerBox.title}
+                          </span>
+                          <span className="font-mono text-[11px] text-slate-400">
+                            {activeTab.dockerBox.uptime}
+                          </span>
+                        </div>
+                        <div className="mt-3 space-y-2">
+                          {activeTab.dockerBox.containers.map((c) => (
+                            <div
+                              key={c.name}
+                              className="flex items-center justify-between rounded-md border border-white/10 bg-[#10192A] px-2.5 py-2 font-mono text-[11px]"
+                            >
+                              <span className="text-slate-200">{c.name}</span>
+                              <span className="text-slate-400">{c.ram}</span>
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+                    </div>
+                  )}
+                </div>
+
+                {/* Right Telemetry Sidebar */}
+                <div className="flex flex-col justify-between rounded-xl border border-white/10 bg-[#10192A] p-4 lg:col-span-4">
+                  <div>
+                    <div className="font-mono text-[11px] font-semibold tracking-wider text-slate-400 uppercase">
+                      {activeTab.sidebarTitle}
+                    </div>
+                    <div className="mt-3 space-y-2.5">
+                      {activeTab.sidebarBlocks.map((block) => (
+                        <div
+                          key={block.label}
+                          className="rounded-lg border border-white/10 bg-[#0B121E] p-3"
+                        >
+                          <div className="font-mono text-[10px] text-slate-400">{block.label}</div>
+                          <div
+                            className={`mt-1 font-mono text-xs font-semibold ${
+                              block.highlight ? 'text-emerald-300' : 'text-white'
+                            }`}
+                          >
+                            {block.value}
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+
+                  <div className="mt-4 border-t border-white/10 pt-3 font-mono text-[11px] text-slate-400">
+                    {activeTab.sidebarFooter}
+                  </div>
+                </div>
+              </motion.div>
+            </AnimatePresence>
+          </div>
+
+          {/* Window Footer */}
+          <div className="flex flex-wrap items-center justify-between gap-2 border-t border-white/10 bg-[#0E1626] px-4 py-2.5 font-mono text-[11px] text-slate-400 sm:px-5">
+            <div className="flex items-center gap-2">
+              <span className="h-1.5 w-1.5 rounded-full bg-emerald-400" />
+              <span>{copy.windowFooter}</span>
+            </div>
+            <button
+              type="button"
+              onClick={() => setIsPaused((p) => !p)}
+              className="cursor-pointer text-slate-400 transition-colors hover:text-white"
+            >
+              {isPaused ? copy.rotationPaused : copy.rotationActive}
+            </button>
+          </div>
+        </div>
       </div>
     </section>
   );
