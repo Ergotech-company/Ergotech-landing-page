@@ -37,12 +37,12 @@ export function Navbar({ lang, setLang, copy }) {
           <a href="#top" className="flex items-center gap-2.5 select-none">
             <img
               src="/brand/logo-1.png"
-              alt="ERGOTECHNOLOGY"
+              alt="ERGOTECNOLOGY"
               className="h-7 w-7 object-contain"
               draggable={false}
             />
             <span className="text-sm font-bold tracking-[0.06em] text-[#0F172A] uppercase">
-              ERGOTECHNOLOGY
+              ERGOTECNOLOGY
             </span>
           </a>
 

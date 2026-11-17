@@ -37,7 +37,7 @@ export function Footer({ copy }) {
         {/* Giant Editorial Wordmark */}
         <div className="py-10 sm:py-12">
           <div className="w-full overflow-hidden text-center text-[clamp(2.1rem,8.4vw,6.8rem)] leading-[0.95] font-bold tracking-[-0.04em] text-[#0F172A] select-none">
-            ERGOTECHNOLOGY
+            ERGOTECNOLOGY
           </div>
         </div>
 
@@ -97,7 +97,7 @@ export function Footer({ copy }) {
         {/* Bottom Legal */}
         <div className="flex flex-wrap items-center justify-between gap-4 pt-6 text-xs text-[#64748B]">
           <span>
-            © {new Date().getFullYear()} ERGOTECHNOLOGY. {copy.rights}
+            © {new Date().getFullYear()} ERGOTECNOLOGY. {copy.rights}
           </span>
           <a
             href="https://www.instagram.com/ergotechnology_devs/"

@@ -17,7 +17,7 @@ export const CONTENT = {
       mobileSecondaryCta: 'Ver laboratorio',
     },
     hero: {
-      eyebrow: 'ERGOTECHNOLOGY · We code, you live',
+      eyebrow: 'ERGOTECNOLOGY · We code, you live',
       titleLine1: 'Sistemas ERP y',
       titleLine2: 'apps para PYMES',
       subtitle:
@@ -590,7 +590,7 @@ export const CONTENT = {
       mobileSecondaryCta: 'View lab',
     },
     hero: {
-      eyebrow: 'ERGOTECHNOLOGY · We code, you live',
+      eyebrow: 'ERGOTECNOLOGY · We code, you live',
       titleLine1: 'ERP systems &',
       titleLine2: 'apps for SMBs',
       subtitle:
